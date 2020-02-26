@@ -1,7 +1,39 @@
 import React from 'react';
-
-const Register = () => {
-  return <p>Register Comp</p>;
+import { withFormik } from 'formik';
+const Register = ({
+  values,
+  handleChange,
+  handleSubmit,
+  handleBlur,
+  isSubmitting
+}) => {
+  return (
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="firstName">First Name</label>
+      <input
+        type="text"
+        name="firstName"
+        value={values.firstName}
+        onChange={handleChange}
+        onBlur={handleBlur}
+      />
+      <button disabled={isSubmitting} type="submit">
+        Submit
+      </button>
+    </form>
+  );
 };
 
-export default Register;
+export default withFormik({
+  mapPropsToValues() {
+    return {
+      firstName: ''
+    };
+  },
+  handleSubmit(values, { resetForm, setSubmitting }) {
+    setTimeout(() => {
+      console.log(values);
+      setSubmitting(false);
+    }, 1000);
+  }
+})(Register);
