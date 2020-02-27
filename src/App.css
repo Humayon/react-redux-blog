@@ -9,3 +9,14 @@ body {
 .not-found-content {
   padding: 50px;
 }
+button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.btn-submit.MuiButton-containedPrimary {
+  margin: 20px auto;
+  display: block;
+}
+form.register-form {
+  max-width: 500px;
+  margin: auto;
+}
+.error-warning {
+  color: red;
+}

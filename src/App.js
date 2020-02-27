@@ -8,15 +8,15 @@ import { NotFound } from './components/pages';
 const App = () => {
   return (
     <div>
-      <Layout>
-        <Router>
+      <Router>
+        <Layout>
           <Switch>
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route component={NotFound} />
           </Switch>
-        </Router>
-      </Layout>
+        </Layout>
+      </Router>
     </div>
   );
 };

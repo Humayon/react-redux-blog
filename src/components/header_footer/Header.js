@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { AppBar, Typography, Toolbar, Container } from '@material-ui/core';
+import { AppBar, Toolbar, Container, Link } from '@material-ui/core';
 import RegisterLinks from './RegisterLinks';
 import LoginLinks from './LoginLinks';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Header = () => {
   const [auth, setAuth] = useState(false);
@@ -9,9 +10,16 @@ const Header = () => {
     <AppBar position="static">
       <Container>
         <Toolbar>
-          <Typography variant="h6" className="header-title">
+          <Link
+            variant="h6"
+            className="header-title"
+            color="inherit"
+            underline="none"
+            to="/"
+            component={RouterLink}
+          >
             Blog App
-          </Typography>
+          </Link>
           {auth ? <LoginLinks /> : <RegisterLinks />}
         </Toolbar>
       </Container>
