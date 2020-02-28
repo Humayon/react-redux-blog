@@ -1,84 +1,102 @@
 import React from 'react';
 import { withFormik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Typography } from '@material-ui/core';
 
 const Register = ({ isSubmitting, handleChange, handleBlur, values }) => {
   return (
-    <Form noValidate className="register-form">
-      <TextField
-        name="firstName"
-        value={values.firstName}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="First Name"
-        fullWidth
-        type="text"
-      />
-      <ErrorMessage
-        name="firstName"
-        component="div"
-        className="error-warning"
-      />
-
-      <TextField
-        name="lastName"
-        value={values.lastName}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Last Name"
-        fullWidth
-        type="text"
-      />
-      <ErrorMessage name="lastName" component="div" className="error-warning" />
-
-      <TextField
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Email"
-        fullWidth
-        type="email"
-      />
-      <ErrorMessage name="email" component="div" className="error-warning" />
-
-      <TextField
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Password"
-        fullWidth
-        type="password"
-      />
-      <ErrorMessage name="password" component="div" className="error-warning" />
-
-      <TextField
-        name="confirmPassword"
-        value={values.confirmPassword}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Confirm Password"
-        fullWidth
-        type="password"
-      />
-      <ErrorMessage
-        name="confirmPassword"
-        component="div"
-        className="error-warning"
-      />
-
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={isSubmitting}
-        type="submit"
-        className="btn-submit"
+    <React.Fragment>
+      <Typography
+        variant="h5"
+        component="h2"
+        align="center"
+        className="form-title"
       >
-        Regsiter
-      </Button>
-    </Form>
+        Register
+      </Typography>
+      <Form noValidate className="register-form">
+        <TextField
+          name="firstName"
+          value={values.firstName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="First Name"
+          fullWidth
+          type="text"
+        />
+        <ErrorMessage
+          name="firstName"
+          component="div"
+          className="error-warning"
+        />
+
+        <TextField
+          name="lastName"
+          value={values.lastName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Last Name"
+          fullWidth
+          type="text"
+        />
+        <ErrorMessage
+          name="lastName"
+          component="div"
+          className="error-warning"
+        />
+
+        <TextField
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Email"
+          fullWidth
+          type="email"
+        />
+        <ErrorMessage name="email" component="div" className="error-warning" />
+
+        <TextField
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Password"
+          fullWidth
+          type="password"
+        />
+        <ErrorMessage
+          name="password"
+          component="div"
+          className="error-warning"
+        />
+
+        <TextField
+          name="confirmPassword"
+          value={values.confirmPassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Confirm Password"
+          fullWidth
+          type="password"
+        />
+        <ErrorMessage
+          name="confirmPassword"
+          component="div"
+          className="error-warning"
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={isSubmitting}
+          type="submit"
+          className="btn-submit"
+        >
+          Regsiter
+        </Button>
+      </Form>
+    </React.Fragment>
   );
 };
 

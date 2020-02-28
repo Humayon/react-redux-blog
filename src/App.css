@@ -19,4 +19,12 @@ form.register-form {
 }
 .error-warning {
   color: red;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 15px;
+}
+h2.MuiTypography-root.form-title.MuiTypography-h5.MuiTypography-alignCenter {
+  margin: 20px auto;
+}
+.MuiGrid-root.grid-margin.MuiGrid-container.MuiGrid-spacing-xs-2 {
+  margin-top: 10px;
 }

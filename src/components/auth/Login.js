@@ -1,43 +1,57 @@
 import React from 'react';
 import { withFormik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Typography } from '@material-ui/core';
 
 const Login = ({ isSubmitting, handleChange, handleBlur, values }) => {
   return (
-    <Form noValidate className="register-form">
-      <TextField
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Email"
-        fullWidth
-        type="email"
-      />
-      <ErrorMessage name="email" component="div" className="error-warning" />
-
-      <TextField
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        label="Password"
-        fullWidth
-        type="password"
-      />
-      <ErrorMessage name="password" component="div" className="error-warning" />
-
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={isSubmitting}
-        type="submit"
-        className="btn-submit"
+    <React.Fragment>
+      <Typography
+        variant="h5"
+        component="h2"
+        align="center"
+        className="form-title"
       >
         Login
-      </Button>
-    </Form>
+      </Typography>
+      <Form noValidate className="register-form">
+        <TextField
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Email"
+          fullWidth
+          type="email"
+        />
+        <ErrorMessage name="email" component="div" className="error-warning" />
+
+        <TextField
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          label="Password"
+          fullWidth
+          type="password"
+        />
+        <ErrorMessage
+          name="password"
+          component="div"
+          className="error-warning"
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={isSubmitting}
+          type="submit"
+          className="btn-submit"
+        >
+          Login
+        </Button>
+      </Form>
+    </React.Fragment>
   );
 };
 
