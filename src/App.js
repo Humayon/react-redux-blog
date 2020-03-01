@@ -10,6 +10,11 @@ import postsData from './data/data';
 
 const App = () => {
   const [posts, setPosts] = useState(postsData);
+
+  const deletePost = id => {
+    setPosts(posts.filter(post => post.id !== id));
+  };
+
   return (
     <div>
       <Router>
@@ -22,7 +27,12 @@ const App = () => {
             />
             <Route path="/add" component={AddPost} />
             <Route path="/edit/:id" component={EditPost} />
-            <Route path="/post/:id" component={PostDetails} />
+            <Route
+              path="/post/:id"
+              component={() => (
+                <PostDetails posts={posts} deletePost={deletePost} />
+              )}
+            />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route component={NotFound} />
