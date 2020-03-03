@@ -7,6 +7,9 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
+import { Editor } from 'slate-react';
+import initialValue from './editor/value';
+import MyEditor from './editor';
 
 const categories = [
   { label: 'Travel', value: 'travel' },
@@ -18,6 +21,7 @@ const PostForm = () => {
   const [title, setTitle] = useState();
   const [error, setError] = useState(false);
   const [category, setCategory] = useState([]);
+  const [editor, setEditor] = useState(initialValue);
 
   const handleChange = e => {
     setTitle(e.target.value);
@@ -30,6 +34,10 @@ const PostForm = () => {
 
   const handleCategory = e => {
     setCategory(e.target.value);
+  };
+
+  const editorHandleChange = ({ value }) => {
+    setEditor(value);
   };
 
   return (
@@ -50,6 +58,8 @@ const PostForm = () => {
         onChange={handleChange}
         helperText="Title is required"
       />
+
+      <MyEditor value={editor} onChange={editorHandleChange} />
 
       <Select
         multiple
