@@ -5,7 +5,7 @@ import LoginLinks from './LoginLinks';
 import { Link as RouterLink } from 'react-router-dom';
 
 const Header = () => {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   return (
     <AppBar position="static">
       <Container>
