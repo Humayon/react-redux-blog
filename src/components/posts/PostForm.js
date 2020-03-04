@@ -7,7 +7,7 @@ import {
   Select,
   MenuItem
 } from '@material-ui/core';
-import { Editor } from 'slate-react';
+
 import initialValue from './editor/value';
 import MyEditor from './editor';
 
