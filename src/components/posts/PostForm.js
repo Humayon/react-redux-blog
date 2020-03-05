@@ -37,6 +37,9 @@ const PostForm = () => {
   };
 
   const editorHandleChange = ({ value }) => {
+    if (value.document !== editor.document) {
+      localStorage.setItem('content', JSON.stringify(value.toJSON()));
+    }
     setEditor(value);
   };
 
