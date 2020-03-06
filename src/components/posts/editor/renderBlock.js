@@ -21,18 +21,12 @@ const renderBlock = (props, editor, next) => {
       return <h4 {...attributes}>{children}</h4>;
     case 'block-quote':
       return <blockquote {...attributes}>{children}</blockquote>;
+    case 'list-item':
+      return <li {...attributes}>{children}</li>;
     case 'unorderd-list':
-      return (
-        <ul {...attributes}>
-          <li>{children}</li>
-        </ul>
-      );
+      return <ul {...attributes}>{children}</ul>;
     case 'orderd-list':
-      return (
-        <ol {...attributes}>
-          <li>{children}</li>
-        </ol>
-      );
+      return <ol {...attributes}>{children}</ol>;
     case 'code':
       return <CodeNode {...props} />;
     default:

@@ -14,7 +14,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-contained.btn-submit.MuiButto
   display: block;
 }
 form.register-form {
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
 }
 .error-warning {
@@ -27,4 +27,8 @@ h2.MuiTypography-root.form-title.MuiTypography-h5.MuiTypography-alignCenter {
 }
 .MuiGrid-root.grid-margin.MuiGrid-container.MuiGrid-spacing-xs-2 {
   margin-top: 10px;
+}
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.active {
+  background: #3f51b5;
+  color: white;
 }

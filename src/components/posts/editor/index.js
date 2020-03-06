@@ -49,9 +49,67 @@ const MyEditor = ({ value, onChange }) => {
     refEditor.toggleMark(type);
   };
 
+  const hasMark = type => {
+    return value.activeMarks.some(mark => mark.type === type);
+  };
+
   const renderMarkButton = (type, icon) => {
+    const isActive = hasMark(type);
     return (
-      <Button onClick={e => onClickMark(e, type)}>
+      <Button
+        className={isActive ? 'active' : ''}
+        onClick={e => onClickMark(e, type)}
+      >
+        <Icon>{icon}</Icon>
+      </Button>
+    );
+  };
+
+  const onClickBlock = (e, type, isActive) => {
+    const { document } = value;
+    const ul = 'unorderd-list';
+    const ol = 'orderd-list';
+    const li = 'list-item';
+
+    if (type !== ol && type !== ul) {
+      //block other than ol and ul
+      const isActive = hasBlock(type);
+      const isList = hasBlock(li);
+      if (isList) {
+        refEditor
+          .setBlocks(isActive ? 'paragraph' : type)
+          .unwrapBlock(ol)
+          .unwrapBlock(ul);
+      }
+    } else {
+      const isList = hasBlock(li);
+      const isType = value.blocks.some(block => {
+        return !!document.getClosest(block.key, parent => parent.type === type);
+      });
+      if (isList && isType) {
+        refEditor
+          .setBlocks('paragraph')
+          .unwrapBlock(ol)
+          .unwrapBlock(ul);
+      } else if (isList) {
+        refEditor.unwrapBlock(type === ul ? ol : ul).wrapBlock(type);
+      } else {
+        refEditor.setBlocks(li).wrapBlock(type);
+      }
+    }
+  };
+
+  const hasBlock = type => {
+    return value.blocks.some(block => block.type === type);
+  };
+
+  const renderBlockButton = (type, icon) => {
+    const isActive = hasBlock(type);
+    return (
+      <Button
+        className={isActive ? 'active' : ''}
+        onClick={e => onClickBlock(e, type, isActive)}
+      >
         <Icon>{icon}</Icon>
       </Button>
     );
@@ -63,6 +121,11 @@ const MyEditor = ({ value, onChange }) => {
         {renderMarkButton('bold', 'format_bold')}
         {renderMarkButton('italic', 'format_italic')}
         {renderMarkButton('underline', 'format_underline')}
+        {renderBlockButton('heading-four', 'looks_4')}
+        {renderBlockButton('unorderd-list', 'format_list_bulleted')}
+        {renderBlockButton('orderd-list', 'format_list_numbered')}
+        {renderBlockButton('block-quote', 'format_quote')}
+        {renderBlockButton('code', 'code')}
       </ToolBar>
       <Editor
         value={value}
