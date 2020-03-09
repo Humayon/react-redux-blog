@@ -104,7 +104,17 @@ const MyEditor = ({ value, onChange }) => {
   };
 
   const renderBlockButton = (type, icon) => {
-    const isActive = hasBlock(type);
+    let isActive = hasBlock(type);
+    const { document, blocks } = value;
+    const ul = 'unorderd-list';
+    const ol = 'orderd-list';
+    const li = 'list-item';
+    if ([ul, ol].includes(type)) {
+      if (blocks.size > 0) {
+        const parent = document.getParent(blocks.first().key);
+        isActive = hasBlock(li) && parent && parent.type === type;
+      }
+    }
     return (
       <Button
         className={isActive ? 'active' : ''}
