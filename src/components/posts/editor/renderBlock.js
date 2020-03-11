@@ -16,19 +16,19 @@ const renderBlock = (props, editor, next) => {
 
   switch (node.type) {
     case 'paragraph':
-      return <p {...attributes}>{children}</p>;
+      return <p {...attributes}> {children}</p>;
+    case 'code':
+      return <CodeNode {...props} />;
     case 'heading-four':
       return <h4 {...attributes}>{children}</h4>;
     case 'block-quote':
       return <blockquote {...attributes}>{children}</blockquote>;
     case 'list-item':
-      return <li {...attributes}>{children}</li>;
-    case 'unorderd-list':
+      return <li {...attributes}> {children} </li>;
+    case 'unordered-list':
       return <ul {...attributes}>{children}</ul>;
-    case 'orderd-list':
+    case 'ordered-list':
       return <ol {...attributes}>{children}</ol>;
-    case 'code':
-      return <CodeNode {...props} />;
     default:
       return next();
   }

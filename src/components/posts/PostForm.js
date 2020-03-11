@@ -10,6 +10,7 @@ import {
 
 import initialValue from './editor/value';
 import MyEditor from './editor';
+import html from './editor/rules';
 
 const categories = [
   { label: 'Travel', value: 'travel' },
@@ -38,7 +39,8 @@ const PostForm = () => {
 
   const editorHandleChange = ({ value }) => {
     if (value.document !== editor.document) {
-      localStorage.setItem('content', JSON.stringify(value.toJSON()));
+      const serializedValue = html.serialize(value);
+      localStorage.setItem('content', serializedValue);
     }
     setEditor(value);
   };

@@ -7,10 +7,11 @@ const BLOCK_TAGS = {
   pre: 'code',
   h4: 'heading-four',
   ul: 'unordered-list',
-  li: 'ordered-list'
+  ol: 'ordered-list',
+  li: 'list-item'
 };
 
-//add dictionary of mark tags
+// Add a dictionary of mark tags.
 const MARK_TAGS = {
   em: 'italic',
   strong: 'bold',
@@ -25,9 +26,6 @@ const rules = [
         return {
           object: 'block',
           type: type,
-          data: {
-            className: el.getAttribute('class')
-          },
           nodes: next(el.childNodes)
         };
       }
@@ -42,9 +40,17 @@ const rules = [
               </pre>
             );
           case 'paragraph':
-            return <p className={obj.data.get('className')}>{children}</p>;
+            return <p>{children}</p>;
+          case 'heading-four':
+            return <h4>{children}</h4>;
           case 'block-quote':
             return <blockquote>{children}</blockquote>;
+          case 'list-item':
+            return <li> {children} </li>;
+          case 'unordered-list':
+            return <ul>{children}</ul>;
+          case 'ordered-list':
+            return <ol>{children}</ol>;
           default:
             return;
         }
@@ -79,7 +85,5 @@ const rules = [
     }
   }
 ];
-
 const html = new Html({ rules });
-
 export default html;
