@@ -1,56 +1,39 @@
 import React from 'react';
-import { Editor } from 'slate-react';
-import renderMark from './renderMark';
-import renderBlock from './renderBlock';
-import ToolBar from './ToolBar';
 import { Button, Icon } from '@material-ui/core';
+import { Editor } from 'slate-react';
 
-// Editor settings
-const MyEditor = ({ value, onChange }) => {
+import renderBlock from './renderBlock';
+import renderMark from './renderMark';
+import Toolbar from './ToolBar';
+
+const MyEditor = ({ onChange, value }) => {
   let refEditor;
 
   const onKeyDown = (event, editor, next) => {
     if (!event.ctrlKey) return next();
-
+    event.preventDefault();
     switch (event.key) {
-      case 'b': {
-        event.preventDefault();
-        editor.toggleMark('bold');
-        break;
-      }
-      case 'i': {
-        event.preventDefault();
-        editor.toggleMark('italic');
-        break;
-      }
-      case 'u': {
-        event.preventDefault();
-        editor.toggleMark('underline');
-        break;
-      }
-      case '&': {
-        event.preventDefault();
-        editor.insertText('and');
-        break;
-      }
-      case '`': {
+      case '`':
         const isCode = editor.value.blocks.some(block => block.type === 'code');
-        event.preventDefault();
         editor.setBlocks(isCode ? 'paragraph' : 'code');
-        break;
-      }
-      default: {
+        return;
+      case 'b':
+        return editor.toggleMark('bold');
+      case 'i':
+        return editor.toggleMark('italic');
+      case 'u':
+        return editor.toggleMark('underline');
+
+      default:
         return next();
-      }
     }
+  };
+  const hasMark = type => {
+    return value.activeMarks.some(mark => mark.type === type);
   };
 
   const onClickMark = (e, type) => {
     refEditor.toggleMark(type);
-  };
-
-  const hasMark = type => {
-    return value.activeMarks.some(mark => mark.type === type);
   };
 
   const renderMarkButton = (type, icon) => {
@@ -65,10 +48,10 @@ const MyEditor = ({ value, onChange }) => {
     );
   };
 
-  const onClickBlock = (e, type, isActive) => {
+  const onClickBlock = (e, type) => {
     const { document } = value;
-    const ul = 'unorderd-list';
-    const ol = 'orderd-list';
+    const ul = 'unordered-list';
+    const ol = 'ordered-list';
     const li = 'list-item';
 
     if (type !== ol && type !== ul) {
@@ -80,8 +63,11 @@ const MyEditor = ({ value, onChange }) => {
           .setBlocks(isActive ? 'paragraph' : type)
           .unwrapBlock(ol)
           .unwrapBlock(ul);
+      } else {
+        refEditor.setBlocks(isActive ? 'paragraph' : type);
       }
     } else {
+      //block ol and ul
       const isList = hasBlock(li);
       const isType = value.blocks.some(block => {
         return !!document.getClosest(block.key, parent => parent.type === type);
@@ -106,8 +92,8 @@ const MyEditor = ({ value, onChange }) => {
   const renderBlockButton = (type, icon) => {
     let isActive = hasBlock(type);
     const { document, blocks } = value;
-    const ul = 'unorderd-list';
-    const ol = 'orderd-list';
+    const ul = 'unordered-list';
+    const ol = 'ordered-list';
     const li = 'list-item';
     if ([ul, ol].includes(type)) {
       if (blocks.size > 0) {
@@ -126,17 +112,17 @@ const MyEditor = ({ value, onChange }) => {
   };
 
   return (
-    <React.Fragment>
-      <ToolBar>
+    <>
+      <Toolbar>
         {renderMarkButton('bold', 'format_bold')}
         {renderMarkButton('italic', 'format_italic')}
-        {renderMarkButton('underline', 'format_underline')}
+        {renderMarkButton('underline', 'format_underlined')}
         {renderBlockButton('heading-four', 'looks_4')}
-        {renderBlockButton('unorderd-list', 'format_list_bulleted')}
-        {renderBlockButton('orderd-list', 'format_list_numbered')}
+        {renderBlockButton('unordered-list', 'format_list_bulleted')}
+        {renderBlockButton('ordered-list', 'format_list_numbered')}
         {renderBlockButton('block-quote', 'format_quote')}
         {renderBlockButton('code', 'code')}
-      </ToolBar>
+      </Toolbar>
       <Editor
         value={value}
         onChange={onChange}
@@ -145,7 +131,7 @@ const MyEditor = ({ value, onChange }) => {
         renderMark={renderMark}
         ref={editor => (refEditor = editor)}
       />
-    </React.Fragment>
+    </>
   );
 };
 

@@ -11,6 +11,8 @@ import {
 import initialValue from './editor/value';
 import MyEditor from './editor';
 import html from './editor/rules';
+import { v4 as uuidv4 } from 'uuid';
+import { withRouter } from 'react-router-dom';
 
 const categories = [
   { label: 'Travel', value: 'travel' },
@@ -18,7 +20,7 @@ const categories = [
   { label: 'Blog', value: 'blog' }
 ];
 
-const PostForm = () => {
+const PostForm = ({ addPost, history }) => {
   const [title, setTitle] = useState();
   const [error, setError] = useState(false);
   const [category, setCategory] = useState([]);
@@ -30,7 +32,25 @@ const PostForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    setError(true);
+    if (title === '') {
+      setError(true);
+      return;
+    }
+
+    if (category && category.length === 0) {
+      setError(true);
+      return;
+    }
+
+    const post = {
+      id: uuidv4(),
+      title,
+      categories: category,
+      body: localStorage.getItem('content')
+    };
+    addPost(post);
+    //redirect after succesful post
+    history.push('/');
   };
 
   const handleCategory = e => {
@@ -67,12 +87,15 @@ const PostForm = () => {
       <MyEditor value={editor} onChange={editorHandleChange} />
 
       <Select
+        error={error}
         multiple
         displayEmpty
         onChange={handleCategory}
         value={category}
         renderValue={selected =>
-          selected && selected.length === 0 ? 'Category' : selected.join(', ')
+          selected && selected.length === 0
+            ? 'Select Category'
+            : selected.join(', ')
         }
       >
         {categories.map(category => (
@@ -94,4 +117,4 @@ const PostForm = () => {
   );
 };
 
-export default PostForm;
+export default withRouter(PostForm);

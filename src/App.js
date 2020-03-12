@@ -22,7 +22,7 @@ const App = () => {
               path="/"
               render={() => <DashboardIndex posts={posts} />}
             />
-            <Route path="/add" component={AddPost} />
+            <Route path="/add" render={() => <AddPost addPost={addPost} />} />
             <Route path="/edit/:id" component={EditPost} />
             <Route
               path="/post/:id"

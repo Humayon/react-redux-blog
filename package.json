@@ -17,6 +17,7 @@
     "slate": "0.47.8",
     "slate-html-serializer": "^0.8.11",
     "slate-react": "0.22.8",
+    "uuid": "^7.0.2",
     "yup": "^0.28.1"
   },
   "scripts": {

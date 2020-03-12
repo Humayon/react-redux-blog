@@ -6,7 +6,9 @@ const usePostHook = (initialData = []) => {
 
   return {
     posts,
-    addPost() {},
+    addPost(post) {
+      setPosts([...posts, post]);
+    },
     deletePost(id) {
       setPosts(posts.filter(post => post.id !== id));
     },
