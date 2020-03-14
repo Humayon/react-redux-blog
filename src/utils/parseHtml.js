@@ -1,4 +1,4 @@
 const parseHtml = body => {
-  return { _html: body };
+  return { __html: body };
 };
 export default parseHtml;

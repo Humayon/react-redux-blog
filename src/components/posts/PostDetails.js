@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Typography, Button } from '@material-ui/core';
+import { parseHtml } from '../../utils';
 
 const PostDetails = ({
   posts,
@@ -10,7 +11,7 @@ const PostDetails = ({
     params: { id }
   }
 }) => {
-  const findPost = posts.find(post => post.id === Number(id));
+  const findPost = posts.find(post => post.id === id);
 
   const handleDelete = id => {
     deletePost(id);
@@ -23,7 +24,10 @@ const PostDetails = ({
         {findPost.title}
       </Typography>
       <img src={`/img/${findPost.img_url}`} alt="Blog Promo" />
-      <Typography variant="body2">{findPost.body}</Typography>
+      <Typography
+        variant="body2"
+        dangerouslySetInnerHTML={parseHtml(findPost.body)}
+      ></Typography>
       <Typography variant="caption" align="right" display="block">
         written by Kabir on 1st March
       </Typography>

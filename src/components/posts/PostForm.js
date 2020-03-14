@@ -45,6 +45,7 @@ const PostForm = ({ addPost, history }) => {
     const post = {
       id: uuidv4(),
       title,
+      img_url: '2.jpg',
       categories: category,
       body: localStorage.getItem('content')
     };
