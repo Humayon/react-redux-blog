@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   Typography,
@@ -20,11 +20,25 @@ const categories = [
   { label: 'Blog', value: 'blog' }
 ];
 
-const PostForm = ({ addPost, history }) => {
-  const [title, setTitle] = useState();
-  const [error, setError] = useState(false);
+const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
+  const [title, setTitle] = useState('');
+  const [error, setError] = useState(true);
   const [category, setCategory] = useState([]);
   const [editor, setEditor] = useState(initialValue);
+
+  useEffect(() => {
+    if (selectedPost) {
+      let { title, body, img_url, categories } = selectedPost;
+      setTitle(title);
+      setCategory(categories);
+      setEditor(html.deserialize(body));
+    } else {
+      setTitle('');
+      setCategory([]);
+      setEditor(html.deserialize('<p>Blog post description</p>'));
+      setError(false);
+    }
+  }, [selectedPost]);
 
   const handleChange = e => {
     setTitle(e.target.value);
@@ -74,13 +88,14 @@ const PostForm = ({ addPost, history }) => {
         align="center"
         className="form-title"
       >
-        Add Post
+        {selectedPost ? 'Edit Post' : 'Add Post'}
       </Typography>
 
       <TextField
         placeholder="Enter your blog title"
         fullWidth
         error={error}
+        value={title}
         onChange={handleChange}
         helperText="Title is required"
       />
@@ -112,7 +127,7 @@ const PostForm = ({ addPost, history }) => {
         color="primary"
         className="btn-submit"
       >
-        Add post
+        {selectedPost ? 'Update Post' : 'Add Post'}
       </Button>
     </form>
   );

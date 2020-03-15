@@ -7,6 +7,7 @@ const PostDetails = ({
   posts,
   deletePost,
   history,
+  editPost,
   match: {
     params: { id }
   }
@@ -16,6 +17,10 @@ const PostDetails = ({
   const handleDelete = id => {
     deletePost(id);
     history.push('/');
+  };
+
+  const handleEdit = id => {
+    editPost(id);
   };
 
   return (
@@ -36,6 +41,7 @@ const PostDetails = ({
         to={`/edit/${findPost.id}`}
         variant="contained"
         color="primary"
+        onClick={() => handleEdit(findPost.id)}
       >
         Edit
       </Button>
