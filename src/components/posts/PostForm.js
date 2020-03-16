@@ -56,14 +56,25 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
       return;
     }
 
-    const post = {
-      id: uuidv4(),
-      title,
-      img_url: '2.jpg',
-      categories: category,
-      body: localStorage.getItem('content')
-    };
-    addPost(post);
+    if (selectedPost) {
+      const postUpdated = {
+        id: selectedPost.id,
+        title,
+        img_url: '2.jpg',
+        categories: category,
+        body: localStorage.getItem('content')
+      };
+      updatedPost(postUpdated);
+    } else {
+      const post = {
+        id: uuidv4(),
+        title,
+        img_url: '2.jpg',
+        categories: category,
+        body: localStorage.getItem('content')
+      };
+      addPost(post);
+    }
     //redirect after succesful post
     history.push('/');
   };

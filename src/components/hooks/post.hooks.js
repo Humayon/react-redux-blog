@@ -12,7 +12,12 @@ const usePostHook = (initialData = []) => {
     deletePost(id) {
       setPosts(posts.filter(post => post.id !== id));
     },
-    updatePost() {}
+    updatePost(postUpdated) {
+      const postsUpdate = posts.map(post =>
+        post.id === postUpdated.id ? (post = postUpdated) : post
+      );
+      setPosts(postsUpdate);
+    }
   };
 };
 

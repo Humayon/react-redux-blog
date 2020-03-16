@@ -33,6 +33,9 @@ const PostDetails = ({
         variant="body2"
         dangerouslySetInnerHTML={parseHtml(findPost.body)}
       ></Typography>
+      <Typography variant="caption" align="left" display="block">
+        Categories: {findPost.categories.join(',')}
+      </Typography>
       <Typography variant="caption" align="right" display="block">
         written by Kabir on 1st March
       </Typography>
