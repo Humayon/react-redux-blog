@@ -22,7 +22,10 @@ const categories = [
 
 const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
   const [title, setTitle] = useState('');
-  const [error, setError] = useState(true);
+  const [error, setError] = useState({
+    title: '',
+    category: ''
+  });
   const [category, setCategory] = useState([]);
   const [editor, setEditor] = useState(initialValue);
 
@@ -47,12 +50,18 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
   const handleSubmit = e => {
     e.preventDefault();
     if (title === '') {
-      setError(true);
+      setError({
+        ...error,
+        title: 'Title is required'
+      });
       return;
     }
 
     if (category && category.length === 0) {
-      setError(true);
+      setError({
+        ...error,
+        category: 'Category is required'
+      });
       return;
     }
 
@@ -62,7 +71,7 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
         title,
         img_url: '2.jpg',
         categories: category,
-        body: localStorage.getItem('content')
+        body: html.serialize(editor)
       };
       updatedPost(postUpdated);
     } else {
@@ -71,10 +80,12 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
         title,
         img_url: '2.jpg',
         categories: category,
-        body: localStorage.getItem('content')
+        body: html.serialize(editor)
       };
       addPost(post);
     }
+    //clear localstorage
+    localStorage.removeItem('content');
     //redirect after succesful post
     history.push('/');
   };
@@ -105,7 +116,7 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
       <TextField
         placeholder="Enter your blog title"
         fullWidth
-        error={error}
+        error={!!error.title}
         value={title}
         onChange={handleChange}
         helperText="Title is required"
@@ -114,7 +125,7 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
       <MyEditor value={editor} onChange={editorHandleChange} />
 
       <Select
-        error={error}
+        error={!!error.category}
         multiple
         displayEmpty
         onChange={handleCategory}
@@ -131,6 +142,8 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
           </MenuItem>
         ))}
       </Select>
+
+      <p>{error.category && error.category}</p>
 
       <Button
         type="submit"
