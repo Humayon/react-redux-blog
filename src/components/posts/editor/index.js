@@ -124,6 +124,7 @@ const MyEditor = ({ onChange, value }) => {
         {renderBlockButton('code', 'code')}
       </Toolbar>
       <Editor
+        className="editor-style"
         value={value}
         onChange={onChange}
         onKeyDown={onKeyDown}

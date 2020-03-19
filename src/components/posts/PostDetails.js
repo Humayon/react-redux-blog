@@ -25,12 +25,17 @@ const PostDetails = ({
 
   return (
     <React.Fragment>
-      <Typography variant="h5" component="h3">
+      <Typography variant="h5" component="h3" className="post-title">
         {findPost.title}
       </Typography>
-      <img src={`/img/${findPost.img_url}`} alt="Blog Promo" />
+      <img
+        className="image-styles"
+        src={`/img/${findPost.img_url}`}
+        alt="Blog Promo"
+      />
       <Typography
         variant="body2"
+        className="post-body"
         dangerouslySetInnerHTML={parseHtml(findPost.body)}
       ></Typography>
       <Typography variant="caption" align="left" display="block">
@@ -45,6 +50,7 @@ const PostDetails = ({
         variant="contained"
         color="primary"
         onClick={() => handleEdit(findPost.id)}
+        className="edit-button"
       >
         Edit
       </Button>

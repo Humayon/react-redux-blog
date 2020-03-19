@@ -11,6 +11,7 @@ const PostSummary = ({ post }) => {
       </Typography>
       <Typography
         variant="body2"
+        className="post-summary"
         dangerouslySetInnerHTML={parseHtml(truncateText(post.body, 80))}
       ></Typography>
       <Button

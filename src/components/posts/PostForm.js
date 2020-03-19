@@ -38,7 +38,7 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
     } else {
       setTitle('');
       setCategory([]);
-      setEditor(html.deserialize('<p>Blog post description</p>'));
+      setEditor(html.deserialize('<p>Blog post description...</p>'));
       setError(false);
     }
   }, [selectedPost]);

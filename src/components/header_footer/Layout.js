@@ -6,7 +6,7 @@ const Layout = props => {
   return (
     <React.Fragment>
       <Header />
-      <Container>{props.children}</Container>
+      <Container className="wrap-container">{props.children}</Container>
       <Footer />
     </React.Fragment>
   );

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 const RegisterLinks = () => {
   return (
     <React.Fragment>
-      <Button color="inherit" component={Link} to="/register">
+      <Button color="inherit" component={NavLink} to="/register">
         Register
       </Button>
-      <Button color="inherit" component={Link} to="/login">
+      <Button color="inherit" component={NavLink} to="/login">
         Login
       </Button>
     </React.Fragment>

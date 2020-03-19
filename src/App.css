@@ -32,3 +32,34 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.active {
   background: #3f51b5;
   color: white;
 }
+a.active {
+  background-color: #1a237e;
+}
+.wrap-container .MuiPaper-root.MuiPaper-elevation4.MuiPaper-rounded {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.post-summary,
+.post-title,
+.post-body {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.image-styles {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+a.edit-button {
+  margin-right: 10px;
+}
+.editor-style {
+  border: 1px solid #cecece;
+  min-height: 300px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.editor-style:hover {
+  border: 1px solid #000;
+}
