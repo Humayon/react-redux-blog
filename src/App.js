@@ -24,11 +24,7 @@ const App = () => {
       <Router>
         <Layout>
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => <DashboardIndex posts={posts} />}
-            />
+            <Route exact path="/" component={DashboardIndex} />
             <Route path="/add" render={() => <AddPost addPost={addPost} />} />
             <Route
               path="/edit/:id"

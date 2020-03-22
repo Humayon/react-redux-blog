@@ -59,6 +59,7 @@ a.edit-button {
   min-height: 300px;
   margin-bottom: 10px;
   margin-top: 10px;
+  padding: 10px;
 }
 .editor-style:hover {
   border: 1px solid #000;

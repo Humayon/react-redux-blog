@@ -3,12 +3,12 @@ import Dashbaord from './Dashboard';
 import Sidebar from './Sidebar';
 import { Grid } from '@material-ui/core';
 
-const DashboardIndex = ({ posts }) => {
+const DashboardIndex = () => {
   return (
     <React.Fragment>
       <Grid container spacing={2} className="grid-margin">
         <Grid item xs={8}>
-          <Dashbaord posts={posts} />
+          <Dashbaord />
         </Grid>
         <Grid item xs={4}>
           <Sidebar />
