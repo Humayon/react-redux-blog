@@ -25,7 +25,7 @@ const App = () => {
         <Layout>
           <Switch>
             <Route exact path="/" component={DashboardIndex} />
-            <Route path="/add" render={() => <AddPost addPost={addPost} />} />
+            <Route path="/add" component={AddPost} />
             <Route
               path="/edit/:id"
               render={() => (

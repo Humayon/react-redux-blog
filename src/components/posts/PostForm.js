@@ -13,14 +13,16 @@ import MyEditor from './editor';
 import html from './editor/rules';
 import { v4 as uuidv4 } from 'uuid';
 import { withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { addPost } from '../../store';
 const categories = [
   { label: 'Travel', value: 'travel' },
   { label: 'Journey', value: 'journey' },
   { label: 'Blog', value: 'blog' }
 ];
 
-const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
+const PostForm = ({ history, updatedPost, selectedPost, addSinglePost }) => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState({
     title: '',
@@ -82,7 +84,7 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
         categories: category,
         body: html.serialize(editor)
       };
-      addPost(post);
+      addSinglePost(post);
     }
     //clear localstorage
     localStorage.removeItem('content');
@@ -157,4 +159,9 @@ const PostForm = ({ addPost, history, updatedPost, selectedPost }) => {
   );
 };
 
-export default withRouter(PostForm);
+const mapDipsatchToProps = dispatch => {
+  return {
+    addSinglePost: post => dispatch(addPost(post))
+  };
+};
+export default compose(connect(null, mapDipsatchToProps), withRouter)(PostForm);
