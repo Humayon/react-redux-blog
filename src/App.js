@@ -26,15 +26,7 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={DashboardIndex} />
             <Route path="/add" component={AddPost} />
-            <Route
-              path="/edit/:id"
-              render={() => (
-                <EditPost
-                  selectedPost={selectedPost}
-                  updatedPost={updatePost}
-                />
-              )}
-            />
+            <Route path="/edit/:id" component={EditPost} />
             <Route
               path="/post/:id"
               render={() => (

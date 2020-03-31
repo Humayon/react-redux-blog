@@ -4,14 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
-const EditPost = ({ editPost, updatedPost, post }) => {
-  return (
-    <PostForm
-      editPost={editPost}
-      updatedPost={updatedPost}
-      selectedPost={post}
-    />
-  );
+const EditPost = ({ post }) => {
+  return <PostForm selectedPost={post} />;
 };
 
 const mapStateToProps = (state, ownProps) => {

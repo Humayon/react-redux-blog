@@ -4,5 +4,12 @@ const addPost = post => {
     post
   };
 };
+const updatePost = (post, id) => {
+  return {
+    type: 'UPDATE_POST',
+    post,
+    id
+  };
+};
 
-export { addPost };
+export { addPost, updatePost };

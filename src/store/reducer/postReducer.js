@@ -29,6 +29,10 @@ const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_POST':
       return [...state, action.post];
+    case 'UPDATE_POST':
+      return state.map(post =>
+        post.id === action.id ? (post = action.post) : post
+      );
 
     default:
       return state;

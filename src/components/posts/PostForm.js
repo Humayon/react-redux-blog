@@ -15,14 +15,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { addPost } from '../../store';
+import { addPost, updatePost } from '../../store';
+
 const categories = [
   { label: 'Travel', value: 'travel' },
   { label: 'Journey', value: 'journey' },
   { label: 'Blog', value: 'blog' }
 ];
 
-const PostForm = ({ history, updatedPost, selectedPost, addSinglePost }) => {
+const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState({
     title: '',
@@ -75,7 +76,7 @@ const PostForm = ({ history, updatedPost, selectedPost, addSinglePost }) => {
         categories: category,
         body: html.serialize(editor)
       };
-      updatedPost(postUpdated);
+      updatePost(postUpdated, selectedPost.id);
     } else {
       const post = {
         id: uuidv4(),
@@ -161,7 +162,8 @@ const PostForm = ({ history, updatedPost, selectedPost, addSinglePost }) => {
 
 const mapDipsatchToProps = dispatch => {
   return {
-    addSinglePost: post => dispatch(addPost(post))
+    addSinglePost: post => dispatch(addPost(post)),
+    updatePost: (post, id) => dispatch(updatePost(post, id))
   };
 };
 export default compose(connect(null, mapDipsatchToProps), withRouter)(PostForm);
