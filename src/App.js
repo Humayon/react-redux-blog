@@ -12,13 +12,6 @@ import usePostHook from './components/hooks/post.hooks';
 const App = () => {
   const { posts, addPost, updatePost, deletePost } = usePostHook(postsData);
 
-  const [selectedPost, setSelectedPost] = useState(null);
-
-  const editPost = id => {
-    const foundPost = posts.find(post => post.id === id);
-    setSelectedPost(foundPost);
-  };
-
   return (
     <div>
       <Router>
@@ -29,13 +22,7 @@ const App = () => {
             <Route path="/edit/:id" component={EditPost} />
             <Route
               path="/post/:id"
-              render={() => (
-                <PostDetails
-                  posts={posts}
-                  deletePost={deletePost}
-                  editPost={editPost}
-                />
-              )}
+              render={() => <PostDetails deletePost={deletePost} />}
             />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />

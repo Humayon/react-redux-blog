@@ -2,12 +2,13 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Typography, Button } from '@material-ui/core';
 import { parseHtml } from '../../utils';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 const PostDetails = ({
   posts,
   deletePost,
   history,
-  editPost,
   match: {
     params: { id }
   }
@@ -17,10 +18,6 @@ const PostDetails = ({
   const handleDelete = id => {
     deletePost(id);
     history.push('/');
-  };
-
-  const handleEdit = id => {
-    editPost(id);
   };
 
   return (
@@ -49,7 +46,6 @@ const PostDetails = ({
         to={`/edit/${findPost.id}`}
         variant="contained"
         color="primary"
-        onClick={() => handleEdit(findPost.id)}
         className="edit-button"
       >
         Edit
@@ -65,4 +61,17 @@ const PostDetails = ({
   );
 };
 
-export default withRouter(PostDetails);
+const mapStateToProps = state => {
+  return {
+    posts: state.posts
+  };
+};
+
+const mapDispatchToProps = () => {
+  return {};
+};
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(PostDetails);
