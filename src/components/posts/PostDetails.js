@@ -4,6 +4,7 @@ import { Typography, Button } from '@material-ui/core';
 import { parseHtml } from '../../utils';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { deletePost } from '../../store';
 
 const PostDetails = ({
   posts,
@@ -67,8 +68,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = () => {
-  return {};
+const mapDispatchToProps = dispatch => {
+  return {
+    deletePost: id => dispatch(deletePost(id))
+  };
 };
 
 export default compose(

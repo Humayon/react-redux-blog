@@ -4,6 +4,7 @@ const addPost = post => {
     post
   };
 };
+
 const updatePost = (post, id) => {
   return {
     type: 'UPDATE_POST',
@@ -12,4 +13,11 @@ const updatePost = (post, id) => {
   };
 };
 
-export { addPost, updatePost };
+const deletePost = id => {
+  return {
+    type: 'DELETE_POST',
+    id
+  };
+};
+
+export { addPost, updatePost, deletePost };

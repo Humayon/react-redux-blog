@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux';
 import postReducer from './reducer/postReducer';
-import { addPost, updatePost } from './actions/postAction';
+import { addPost, updatePost, deletePost } from './actions/postAction';
 
 const store = createStore(
   combineReducers({
@@ -8,4 +8,4 @@ const store = createStore(
   })
 );
 
-export { store, addPost, updatePost };
+export { store, addPost, updatePost, deletePost };
