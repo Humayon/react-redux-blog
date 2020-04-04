@@ -5,7 +5,7 @@ import {
   Button,
   ListItemText,
   Select,
-  MenuItem
+  MenuItem,
 } from '@material-ui/core';
 
 import initialValue from './editor/value';
@@ -13,24 +13,27 @@ import MyEditor from './editor';
 import html from './editor/rules';
 import { v4 as uuidv4 } from 'uuid';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { useDispatch } from 'react-redux';
+// import { connect } from 'react-redux';
+// import { compose } from 'redux';
 import { addPost, updatePost } from '../../store';
 
 const categories = [
   { label: 'Travel', value: 'travel' },
   { label: 'Journey', value: 'journey' },
-  { label: 'Blog', value: 'blog' }
+  { label: 'Blog', value: 'blog' },
 ];
 
-const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
+const PostForm = ({ history, selectedPost }) => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState({
     title: '',
-    category: ''
+    category: '',
   });
   const [category, setCategory] = useState([]);
   const [editor, setEditor] = useState(initialValue);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (selectedPost) {
@@ -46,16 +49,16 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
     }
   }, [selectedPost]);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (title === '') {
       setError({
         ...error,
-        title: 'Title is required'
+        title: 'Title is required',
       });
       return;
     }
@@ -63,7 +66,7 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
     if (category && category.length === 0) {
       setError({
         ...error,
-        category: 'Category is required'
+        category: 'Category is required',
       });
       return;
     }
@@ -74,18 +77,18 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
         title,
         img_url: '2.jpg',
         categories: category,
-        body: html.serialize(editor)
+        body: html.serialize(editor),
       };
-      updatePost(postUpdated, selectedPost.id);
+      dispatch(updatePost(postUpdated, selectedPost.id));
     } else {
       const post = {
         id: uuidv4(),
         title,
         img_url: '2.jpg',
         categories: category,
-        body: html.serialize(editor)
+        body: html.serialize(editor),
       };
-      addSinglePost(post);
+      dispatch(addPost(post));
     }
     //clear localstorage
     localStorage.removeItem('content');
@@ -93,7 +96,7 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
     history.push('/');
   };
 
-  const handleCategory = e => {
+  const handleCategory = (e) => {
     setCategory(e.target.value);
   };
 
@@ -133,13 +136,13 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
         displayEmpty
         onChange={handleCategory}
         value={category}
-        renderValue={selected =>
+        renderValue={(selected) =>
           selected && selected.length === 0
             ? 'Select Category'
             : selected.join(', ')
         }
       >
-        {categories.map(category => (
+        {categories.map((category) => (
           <MenuItem value={category.value} key={category.label}>
             <ListItemText primary={category.label} />
           </MenuItem>
@@ -160,10 +163,11 @@ const PostForm = ({ history, updatePost, selectedPost, addSinglePost }) => {
   );
 };
 
-const mapDipsatchToProps = dispatch => {
-  return {
-    addSinglePost: post => dispatch(addPost(post)),
-    updatePost: (post, id) => dispatch(updatePost(post, id))
-  };
-};
-export default compose(connect(null, mapDipsatchToProps), withRouter)(PostForm);
+// const mapDipsatchToProps = (dispatch) => {
+//   return {
+//     addSinglePost: (post) => dispatch(addPost(post)),
+//     updatePost: (post, id) => dispatch(updatePost(post, id)),
+//   };
+// };
+export default withRouter(PostForm);
+// export default compose(connect(null, mapDipsatchToProps), withRouter)(PostForm);

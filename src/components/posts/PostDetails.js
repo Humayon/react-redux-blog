@@ -1,23 +1,25 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { withRouter, Link } from 'react-router-dom';
 import { Typography, Button } from '@material-ui/core';
 import { parseHtml } from '../../utils';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
+// import { connect } from 'react-redux';
+// import { compose } from 'redux';
 import { deletePost } from '../../store';
 
 const PostDetails = ({
-  posts,
-  deletePost,
   history,
   match: {
-    params: { id }
-  }
+    params: { id },
+  },
 }) => {
-  const findPost = posts.find(post => post.id === id);
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
+  const findPost = posts.find((post) => post.id === id);
 
-  const handleDelete = id => {
-    deletePost(id);
+  const handleDelete = (id) => {
+    dispatch(deletePost(id));
     history.push('/');
   };
 
@@ -62,19 +64,20 @@ const PostDetails = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    posts: state.posts
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     posts: state.posts,
+//   };
+// };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    deletePost: id => dispatch(deletePost(id))
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     deletePost: (id) => dispatch(deletePost(id)),
+//   };
+// };
 
-export default compose(
-  withRouter,
-  connect(mapStateToProps, mapDispatchToProps)
-)(PostDetails);
+export default PostDetails;
+// export default compose(
+//   withRouter,
+//   connect(mapStateToProps, mapDispatchToProps)
+// )(PostDetails);
